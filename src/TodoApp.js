@@ -7,13 +7,9 @@ import Grid from '@material-ui/core/Grid'
 import TodoList from './TodoList'
 import TodoForm from './TodoForm'
 import useTodoState from './hooks/useTodoState'
+import { TodosProvider } from './context/todos.context'
 
 export default function TodoApp() {
-  const initialTodos = [{ id: 1, task: 'Get eggs', completed: false }]
-  const { todos, toggleTodo, addTodo, removeTodo, editTodo } = useTodoState(
-    initialTodos
-  )
-
   return (
     <Paper
       style={{
@@ -32,13 +28,10 @@ export default function TodoApp() {
 
       <Grid container justify='center' style={{ marginTop: '1rem' }}>
         <Grid item xs={11} md={8} lg={4}>
-          <TodoForm addTodo={addTodo} />
-          <TodoList
-            todos={todos}
-            removeTodo={removeTodo}
-            toggleTodo={toggleTodo}
-            editTodo={editTodo}
-          />
+          <TodosProvider>
+            <TodoForm />
+            <TodoList />
+          </TodosProvider>
         </Grid>
       </Grid>
     </Paper>
