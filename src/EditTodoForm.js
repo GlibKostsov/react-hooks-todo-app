@@ -4,14 +4,14 @@ import useInputState from './hooks/useInputState'
 import { TodosContext } from './context/todos.context'
 
 export default function EditTodoForm({ id, task, toggleIsEditing }) {
-  const { editTodo } = useContext(TodosContext)
+  const { dispatch } = useContext(TodosContext)
   const [value, handleChange, reset] = useInputState(task)
   return (
     <form
       style={{ marginLeft: '1rem', width: '60%' }}
       onSubmit={(e) => {
         e.preventDefault()
-        editTodo(id, value)
+        dispatch({ type: 'EDIT', id: id, newTask: value })
         reset()
         toggleIsEditing()
       }}
